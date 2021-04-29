@@ -3,3 +3,15 @@
 //includes a feature where the dialogue can be displayed that is currently being broadcasted
 //Notify the current player when a new player enters or leaves the room (some kind of alert dialogue or synced with the other dialogue box)
 //Alert when someone says something (can also be in the same dialogue stream)
+
+import React from 'react'
+
+function Room() {
+    return (
+        <div>
+            
+        </div>
+    )
+}
+
+export default Room
