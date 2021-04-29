@@ -5,6 +5,9 @@
 
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
+import { setUserID, loadingRes } from '../store/actions/master';
+import { useDispatch } from "react-redux";
+import { axiosWithAuth } from '../store/utils/axiosWithAuth';
 import * as yup from "yup";
 
 const initialFormState = {
@@ -15,6 +18,7 @@ const initialFormState = {
 function Login() {
     const [formState, setFormState] = useState(initialFormState);
     const [formErrors, setFormErrors] = useState({});
+    const dispatch = useDispatch();
     const history = useHistory();
 
     const formSchema = yup.object().shape({
@@ -30,6 +34,41 @@ function Login() {
         setFormState({...formState, [e.target.name]: e.target.value});
     }
 
+    function submit(e) {
+        const user = {
+            username: formState.username.trim(),
+            password: formState.password
+          }
+
+        e.preventDefault();
+          formSchema.validate(formState, {abortEarly:false})
+            .then(valid => {
+              setFormErrors({});
+
+            axiosWithAuth()
+            .post('/auth/login', user)
+
+            .then(res => {
+                window.localStorage.setItem('token', res.data.token)
+             
+                history.push('/room')
+               
+                dispatch(setUserID(res.data.id))
+             
+                dispatch(loadingRes())    
+        })
+    })
+
+    .catch(err => {
+        let errors = err.inner;
+        let errorsObj = {};
+        for (let i in errors) {
+          let key = errors[i].params.path;
+          errorsObj[key] = errors[i].errors[0]; 
+        }
+        setFormErrors(errorsObj); 
+      });
+    }
 
     return (
         <div>
@@ -62,4 +101,3 @@ function Login() {
 }
 
 export default Login
-
