@@ -5,6 +5,7 @@
 
 import React, {useState} from 'react';
 import { useHistory } from 'react-router-dom';
+import * as yup from "yup";
 
 const initialFormState = {
     username: "",
@@ -15,6 +16,19 @@ function Login() {
     const [formState, setFormState] = useState(initialFormState);
     const [formErrors, setFormErrors] = useState({});
     const history = useHistory();
+
+    const formSchema = yup.object().shape({
+        username: yup
+          .string()
+          .min(8, "Usernames must be at least eight characters long."),
+        password: yup
+          .string()
+          .min(10, "Passwords must be at least ten characters long."),
+      });
+
+    function updateForm(e) {
+        setFormState({...formState, [e.target.name]: e.target.value});
+    }
 
 
     return (
