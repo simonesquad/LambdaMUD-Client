@@ -47,7 +47,7 @@ function Login() {
               setFormErrors({});
 
             axiosWithAuth()
-            .post('/auth/login', user)
+            .post('/auth/init', user)
 
             .then(res => {
                 window.localStorage.setItem('token', res.data.token)
@@ -100,6 +100,7 @@ function Login() {
             <button type="register">Register</button>
             </Link>
             </form>
+
         </div>
     )
 }

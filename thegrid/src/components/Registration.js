@@ -65,7 +65,7 @@ function Registration() {
         }
        
     axios 
-        .post('https://cloudskool.herokuapp.com/api/auth/register', formValues)
+        .post('https://simonegameapp.herokuapp.com/api/auth/registration', formValues)
         .then(res => {
             dispatch(toggleMain())
             history.push('/login')
