@@ -23,7 +23,7 @@ export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAIL = "UPDATE_USER_FAIL";
 
 export const updateUser = (id) => dispatch => {
-    dispatch({type: UPDATE_USER})
+    dispatch({type: UPDATE_USER_START})
     axiosWithAuth()
         .patch(`users/${id}`)
         .then(res => {
