@@ -4,11 +4,12 @@
 // figure out the automatic subscription to a pusher channel upon login based on the player's id
 
 import React, {useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { setUserID, loadingRes } from '../store/actions/master';
 import { useDispatch } from "react-redux";
 import { axiosWithAuth } from '../store/utils/axiosWithAuth';
 import * as yup from "yup";
+import Registration from './Registration';
 
 const initialFormState = {
     username: "",
@@ -95,6 +96,9 @@ function Login() {
 
             <button type="submit">Submit</button>
 
+            <Link to={Registration}>
+            <button type="register">Register</button>
+            </Link>
             </form>
         </div>
     )
